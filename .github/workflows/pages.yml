@@ -1,0 +1,35 @@
+name: Deploy-Page
+
+on:
+   release:
+      types:
+         - released
+         
+jobs: 
+   deploy:
+      run-on: ubuntu-latest
+      
+      strategy:
+      matrix:
+         node-version: [12.x]
+      
+      steps:
+         - uses: actions/checkout@v2
+         with:
+            node-version: ${{ matrix.node-version }}
+         - run: npm i      
+      
+      
+      # Workflow dispatch event that pushes the current version to the release branch.
+      # From here the secondary production deployment workflow will trigger to build the dependencies.
+      - name: Deploy Page
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: .
+          clean: false
+          single-commit: true      
+      
+      
+      
+      
