@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZAPPL_MESSAGE</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Message handling</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>This is a success message.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>This is a warning message.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>This is a error message.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>This is a info message.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>This is a abort message.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Double-click is only allowed for the long text.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL_MESSAGE</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Show protocol</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>
