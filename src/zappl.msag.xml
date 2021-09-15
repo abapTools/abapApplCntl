@@ -23,6 +23,12 @@
     <T100>
      <SPRSL>E</SPRSL>
      <ARBGB>ZAPPL</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Please save the data first.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAPPL</ARBGB>
      <MSGNR>027</MSGNR>
      <TEXT>Parameter &amp;1 not allowed! Check the table ZAPPL_GLPRD.</TEXT>
     </T100>

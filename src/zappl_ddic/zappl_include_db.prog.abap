@@ -20,12 +20,6 @@ DEFINE _save.
   table = &1.
   ENDIF.
 
-* Write change documents
-*  CALL METHOD write_change_documents
-*  EXPORTING
-*  im_change_indicator = 'D'
-*  it_data             = t_data_delete.
-
   LOOP AT t_data_delete ASSIGNING <data>.
   DELETE TABLE t_data_old FROM <data>.
   ENDLOOP.
@@ -44,12 +38,6 @@ DEFINE _save.
   table = &1.
   ENDIF.
 
-* Write change documents
-*    call method write_change_documents
-*      exporting
-*        im_change_indicator = 'I'
-*        it_data             = t_data_insert.
-
   LOOP AT t_data_insert ASSIGNING <data>.
   INSERT <data> INTO TABLE t_data_old.
   ENDLOOP.
@@ -66,12 +54,6 @@ DEFINE _save.
   EXPORTING
   table = &1.
   ENDIF.
-
-* Write change documents
-  CALL METHOD write_change_documents
-  EXPORTING
-  im_change_indicator = 'U'
-  it_data             = t_data_update.
 
   LOOP AT t_data_update ASSIGNING <data>.
   MODIFY TABLE t_data_old FROM <data>.

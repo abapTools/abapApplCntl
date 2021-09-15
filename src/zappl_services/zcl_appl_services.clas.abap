@@ -48,9 +48,6 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
   METHOD create_dynamic_structure.
 
     DATA: ls_fcat        TYPE lvc_s_fcat,
@@ -82,7 +79,7 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
 
 *   Datentyp im ABAP Dictionary
       ELSEIF ls_fcat-datatype IS NOT INITIAL.
-        CASE ls_fcat-datatype.
+        CASE ls_fcat-datatype. "#EC CI_DATN_TIMN_OK
           WHEN 'CHAR'.
             lv_length = get_length( ls_fcat ).
             ls_field-type ?= cl_abap_elemdescr=>get_c( p_length = lv_length ).
@@ -111,7 +108,7 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
 
 *   ABAP-Datentyp (C,D,N,...)
       ELSEIF ls_fcat-inttype IS NOT INITIAL.
-        CASE ls_fcat-inttype.
+        CASE ls_fcat-inttype. "#EC CI_INT8_OK  "#EC CI_UTCL_OK
           WHEN 'C'.       "Zeichenfolge  (Character)
             lv_length = get_length( ls_fcat ).
             ls_field-type ?= cl_abap_elemdescr=>get_c( p_length = lv_length ).

@@ -6,6 +6,9 @@ class ZCL_APPL_CNTL definition
 public section.
   type-pools ABAP .
 
+  class-data UPDATE_FLAG type XFELD read-only .
+  class-data READY_FOR_INPUT type XFELD read-only .
+
   class-events BEFORE_SAVE .
   class-events BUFFER_BACKUP .
   class-events BUFFER_REFRESH
@@ -55,7 +58,14 @@ public section.
       !IM_ALL_OBJECTS type XFELD default SPACE .
   class-methods RESTORE_BUFFER .
   class-methods SAVE_BUFFER .
-PROTECTED SECTION.
+  class-methods GET_UPDATE_FLAG
+    returning
+      value(RM_FLAG) type XFELD .
+  class-methods SET_UPDATE_FLAG
+    importing
+      value(IM_FLAG) type XFELD default ABAP_TRUE .
+  class-methods CHANGE_INPUT .
+  PROTECTED SECTION.
 
 private section.
 
@@ -76,17 +86,30 @@ ENDCLASS.
 CLASS ZCL_APPL_CNTL IMPLEMENTATION.
 
 
-METHOD class_constructor.
+  METHOD change_input.
+
+    CASE  ready_for_input.
+      WHEN abap_true.
+        ready_for_input = abap_false.
+      WHEN abap_false.
+        ready_for_input = abap_true.
+      WHEN OTHERS.
+    ENDCASE.
+
+  ENDMETHOD.
+
+
+  METHOD class_constructor.
 
 
 * Buffer dynamic class table
-  SELECT * FROM zappl_obj_types INTO TABLE t_appl_types ORDER BY type.
+    SELECT * FROM zappl_obj_types INTO TABLE t_appl_types ORDER BY type.
 
 * Create global message object
-  o_appl_message = get_appl_message( ).
+    o_appl_message = get_appl_message( ).
 
-  CALL METHOD set_handler.
-ENDMETHOD.
+    CALL METHOD set_handler.
+  ENDMETHOD.
 
 
   METHOD commit_work.
@@ -109,105 +132,105 @@ ENDMETHOD.
   ENDMETHOD.
 
 
-METHOD create_object.
+  METHOD create_object.
 
-  DATA: lo_object    TYPE REF TO zif_appl_object,
-        ls_appl      TYPE zappl_obj_types,
-        ls_object    TYPE zappl_object_pointer,
-        lt_parameter TYPE abap_parmbind_tab,
-        lv_index     TYPE sytabix.
+    DATA: lo_object    TYPE REF TO zif_appl_object,
+          ls_appl      TYPE zappl_obj_types,
+          ls_object    TYPE zappl_object_pointer,
+          lt_parameter TYPE abap_parmbind_tab,
+          lv_index     TYPE sytabix.
 
-  CALL METHOD set_handler.
+    CALL METHOD set_handler.
 
-  READ TABLE t_appl_types INTO ls_appl
-      WITH KEY  type  = im_obj_type.
+    READ TABLE t_appl_types INTO ls_appl
+        WITH KEY  type  = im_obj_type.
 
-  IF ls_appl-class IS INITIAL.
-    EXIT.
-  ENDIF.
-
-  TRY.
-      " Due to return transport on 4.7
-      lt_parameter = it_parameter.
-
-      CREATE OBJECT lo_object
-        TYPE
-          (ls_appl-class)
-        PARAMETER-TABLE
-          lt_parameter.
-    CATCH cx_sy_create_object_error.
-  ENDTRY.
-
-  IF lo_object IS BOUND.
-
-    CALL METHOD lo_object->set_appl_type( im_obj_type ).
-    lo_object->o_appl_message = o_appl_message.
-
-    " Register Singleton Objects
-    IF ls_appl-single = 'X' AND im_obj_register = 'X'.
-      READ TABLE t_single_obj INTO ls_object
-          WITH KEY  appl_type = im_obj_type BINARY SEARCH.
-      IF sy-subrc <> 0.
-        lv_index            = sy-tabix.
-        ls_object-appl_type = im_obj_type.
-        ls_object-object    = lo_object.
-        INSERT ls_object INTO t_single_obj INDEX lv_index.
-      ENDIF.
+    IF ls_appl-class IS INITIAL.
+      EXIT.
     ENDIF.
 
-    ex_object = lo_object.
+    TRY.
+        " Due to return transport on 4.7
+        lt_parameter = it_parameter.
 
-  ELSE.
-    CLEAR ex_object.
-  ENDIF.
+        CREATE OBJECT lo_object
+          TYPE
+            (ls_appl-class)
+          PARAMETER-TABLE
+            lt_parameter.
+      CATCH cx_sy_create_object_error.
+    ENDTRY.
 
-ENDMETHOD.
+    IF lo_object IS BOUND.
+
+      CALL METHOD lo_object->set_appl_type( im_obj_type ).
+      lo_object->o_appl_message = o_appl_message.
+
+      " Register Singleton Objects
+      IF ls_appl-single = 'X' AND im_obj_register = 'X'.
+        READ TABLE t_single_obj INTO ls_object
+            WITH KEY  appl_type = im_obj_type BINARY SEARCH.
+        IF sy-subrc <> 0.
+          lv_index            = sy-tabix.
+          ls_object-appl_type = im_obj_type.
+          ls_object-object    = lo_object.
+          INSERT ls_object INTO t_single_obj INDEX lv_index.
+        ENDIF.
+      ENDIF.
+
+      ex_object = lo_object.
+
+    ELSE.
+      CLEAR ex_object.
+    ENDIF.
+
+  ENDMETHOD.
 
 
-METHOD get_appl_message.
+  METHOD get_appl_message.
 
-  DATA: lo_object  TYPE REF TO zif_appl_object.
+    DATA: lo_object  TYPE REF TO zif_appl_object.
 
-  IF o_appl_message IS INITIAL.
-    CALL METHOD create_object
-      EXPORTING
-        im_obj_type = 'APPL_MESSAGE'
-      IMPORTING
-        ex_object   = lo_object.
+    IF o_appl_message IS INITIAL.
+      CALL METHOD create_object
+        EXPORTING
+          im_obj_type = 'APPL_MESSAGE'
+        IMPORTING
+          ex_object   = lo_object.
 
-    o_appl_message ?= lo_object.
-  ENDIF.
+      o_appl_message ?= lo_object.
+    ENDIF.
 
-  re_obj_message = o_appl_message.
+    re_obj_message = o_appl_message.
 
-ENDMETHOD.
+  ENDMETHOD.
 
 
-METHOD get_field_catalog.
+  METHOD get_field_catalog.
 
-  FIELD-SYMBOLS: <fcat>    TYPE zappl_lvc_fcat.
+    FIELD-SYMBOLS: <fcat>    TYPE zappl_lvc_fcat.
 
 
 * Determine field catalogue
-  SELECT *  FROM zappl_lvcfc
-          INTO CORRESPONDING FIELDS OF TABLE re_tab_fcat
-    WHERE layout_name = im_layout_name
-      AND active      = 'X'.
+    SELECT *  FROM zappl_lvcfc
+            INTO CORRESPONDING FIELDS OF TABLE re_tab_fcat
+      WHERE layout_name = im_layout_name
+        AND active      = 'X'.
 
-  LOOP AT re_tab_fcat ASSIGNING <fcat>.
-    SELECT SINGLE *  FROM zappl_lvcft
-            INTO CORRESPONDING FIELDS OF <fcat>
-      WHERE layout_name = <fcat>-layout_name
-        AND fieldname   = <fcat>-fieldname
-        AND langu       = sy-langu.
-  ENDLOOP.
+    LOOP AT re_tab_fcat ASSIGNING <fcat>.
+      SELECT SINGLE *  FROM zappl_lvcft "#EC CI_ALL_FIELDS_NEEDED
+              INTO CORRESPONDING FIELDS OF <fcat>
+        WHERE layout_name = <fcat>-layout_name
+          AND fieldname   = <fcat>-fieldname
+          AND langu       = sy-langu.
+    ENDLOOP.
 
-  SORT re_tab_fcat BY col_pos.
+    SORT re_tab_fcat BY col_pos.
 
-ENDMETHOD.
+  ENDMETHOD.
 
 
-METHOD get_global_parameter.
+  METHOD get_global_parameter.
 *
 *  DATA: ls_parameter_val    TYPE zappl_glprv,
 *        ls_parameter_def    TYPE zappl_lprd.
@@ -240,34 +263,37 @@ METHOD get_global_parameter.
 *    ENDIF.
 *  ENDIF.
 
-ENDMETHOD.
+  ENDMETHOD.
 
 
-METHOD get_single_obj.
+  METHOD get_single_obj.
 
-  DATA: lo_object   TYPE REF TO zif_appl_object,
-        ls_obj      TYPE zappl_object_pointer.
+    DATA: lo_object TYPE REF TO zif_appl_object,
+          ls_obj    TYPE zappl_object_pointer.
 
-
-  READ TABLE t_single_obj INTO ls_obj
-      WITH KEY appl_type  = im_appl_type BINARY SEARCH.
-
-  IF sy-subrc <> 0.
-    CALL METHOD create_object
-      EXPORTING
-        im_obj_type = im_appl_type
-      IMPORTING
-        ex_object   = lo_object.
 
     READ TABLE t_single_obj INTO ls_obj
-        WITH KEY appl_type = im_appl_type BINARY SEARCH.
-  ENDIF.
+        WITH KEY appl_type  = im_appl_type BINARY SEARCH.
+
+    IF sy-subrc <> 0.
+      CALL METHOD create_object
+        EXPORTING
+          im_obj_type = im_appl_type
+        IMPORTING
+          ex_object   = lo_object.
+
+      READ TABLE t_single_obj INTO ls_obj
+          WITH KEY appl_type = im_appl_type BINARY SEARCH.
+    ENDIF.
+
+    re_object = ls_obj-object.
+
+  ENDMETHOD.
 
 
-
-  re_object = ls_obj-object.
-
-ENDMETHOD.
+  METHOD get_update_flag.
+    rm_flag = update_flag.
+  ENDMETHOD.
 
 
   METHOD refresh_buffer.
@@ -316,10 +342,7 @@ ENDMETHOD.
     CALL METHOD reset_handler.
     RAISE EVENT buffer_save.
 
-
-
     CALL METHOD zcl_appl_cntl=>commit_work.
-
 
     " Output success message
     CHECK o_appl_message->check_error( ) IS INITIAL.
@@ -331,6 +354,7 @@ ENDMETHOD.
     IF 1 = 2.
       MESSAGE s001(zappl).
     ENDIF.
+    set_update_flag( abap_false ).
   ENDMETHOD.
 
 
@@ -341,8 +365,8 @@ ENDMETHOD.
   ENDMETHOD.
 
 
-  method SET_HANDLER.
-  endmethod.
+  METHOD set_handler.
+  ENDMETHOD.
 
 
   METHOD set_objects_cntl.
@@ -351,5 +375,10 @@ ENDMETHOD.
 *      o_lock_cntl ?= get_single_obj( 'APPL_LOCK_CNTL' ).
 *    ENDIF.
 
+  ENDMETHOD.
+
+
+  METHOD set_update_flag.
+    update_flag = im_flag.
   ENDMETHOD.
 ENDCLASS.
