@@ -93,7 +93,7 @@ CLASS ZCL_APPL_HTML_BUTTON_CNTL IMPLEMENTATION.
         lv_index = 1.
       ENDIF.
       ls_pointer-guid   = ls_btn-guid.
-      ls_pointer-object = lo_button.
+      ls_pointer-object ?= lo_object.
       INSERT ls_pointer INTO t_pointer INDEX lv_index.
     ENDIF.
 
@@ -102,8 +102,7 @@ CLASS ZCL_APPL_HTML_BUTTON_CNTL IMPLEMENTATION.
 
 
   METHOD zif_appl_html_button_cntl~create_btn.
-    DATA: lo_button TYPE REF TO zif_appl_html_button.
-    lo_button = get_obj_btn( i_btn ).
+    ro_button = get_obj_btn( i_btn ).
   ENDMETHOD.
 
 

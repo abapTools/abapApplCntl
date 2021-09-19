@@ -29,7 +29,7 @@ CLASS zcl_appl_html_button DEFINITION
 
     METHODS constructor
       IMPORTING
-        !i_btn TYPE zhtml_button .
+        !i_btn TYPE zappl_html_button.
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -46,8 +46,8 @@ CLASS zcl_appl_html_button DEFINITION
     DATA mo_container TYPE REF TO cl_gui_container .
     DATA mo_html TYPE REF TO cl_gui_html_viewer .
     DATA mv_inactive TYPE char01 .
-    DATA s_btn TYPE zhtml_button .
-    DATA s_btn_fields TYPE zhtml_button_fields .
+    DATA s_btn TYPE zappl_html_button.
+    DATA s_btn_fields TYPE zappl_html_btn_fields.
 
     METHODS handle_sapevent
       FOR EVENT sapevent OF cl_gui_html_viewer
@@ -66,14 +66,14 @@ CLASS zcl_appl_html_button DEFINITION
         !ct_html    TYPE ty_html_table .
     METHODS read_btn_db
       IMPORTING
-        !i_btn_type TYPE zhtml_button-btn_type .
+        !i_btn_type TYPE zappl_html_button-btn_type .
     METHODS set_controls .
     METHODS set_btn_color .
 ENDCLASS.
 
 
 
-CLASS zcl_appl_html_button IMPLEMENTATION.
+CLASS ZCL_APPL_HTML_BUTTON IMPLEMENTATION.
 
 
   METHOD build_html_code.
@@ -207,30 +207,30 @@ CLASS zcl_appl_html_button IMPLEMENTATION.
 *      lr_container = s_btn-container.
     ENDIF.
   ENDMETHOD.
-  METHOD zif_appl_object~get_appl_type.
-    re_type = appl_type.
-  ENDMETHOD.
+
 
   METHOD zif_appl_html_button~get_btn_fields.
 
   ENDMETHOD.
 
+
   METHOD zif_appl_html_button~get_btn_type.
 
   ENDMETHOD.
+
 
   METHOD zif_appl_html_button~set_active.
     DATA lt_html             TYPE ty_html_table.
     DATA lv_url              TYPE text1000.
 
 *== set flag for handler
-    mv_inactive = 'X'.
+    mv_inactive = ''.
 
 *== build HTML code for Button
     CALL METHOD build_html_code
       EXPORTING
         iv_text    = s_btn_fields-btn_text
-        iv_color   = 'grey'
+        iv_color   = s_btn_fields-btn_color
         iv_ok_code = s_btn_fields-ok_code
       CHANGING
         ct_html    = lt_html.
@@ -246,9 +246,6 @@ CLASS zcl_appl_html_button IMPLEMENTATION.
     mo_html->show_url( lv_url ).
   ENDMETHOD.
 
-  METHOD zif_appl_object~set_appl_type.
-    appl_type = im_type.
-  ENDMETHOD.
 
   METHOD zif_appl_html_button~set_inactive.
     DATA lt_html             TYPE ty_html_table.
@@ -262,7 +259,7 @@ CLASS zcl_appl_html_button IMPLEMENTATION.
       EXPORTING
         iv_text    = s_btn_fields-btn_text
         iv_color   = 'grey'
-        iv_ok_code = s_btn_fields-ok_code
+        iv_ok_code = ''
       CHANGING
         ct_html    = lt_html.
 
@@ -277,4 +274,13 @@ CLASS zcl_appl_html_button IMPLEMENTATION.
     mo_html->show_url( lv_url ).
   ENDMETHOD.
 
+
+  METHOD zif_appl_object~get_appl_type.
+    re_type = appl_type.
+  ENDMETHOD.
+
+
+  METHOD zif_appl_object~set_appl_type.
+    appl_type = im_type.
+  ENDMETHOD.
 ENDCLASS.
