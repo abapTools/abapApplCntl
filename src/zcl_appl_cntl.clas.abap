@@ -1,84 +1,84 @@
-class ZCL_APPL_CNTL definition
-  public
-  final
-  create public .
+CLASS zcl_appl_cntl DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-  type-pools ABAP .
+  PUBLIC SECTION.
+    TYPE-POOLS abap .
 
-  class-data UPDATE_FLAG type XFELD read-only .
-  class-data READY_FOR_INPUT type XFELD read-only .
+    CLASS-DATA update_flag TYPE xfeld READ-ONLY .
+    CLASS-DATA ready_for_input TYPE xfeld READ-ONLY .
 
-  class-events BEFORE_SAVE .
-  class-events BUFFER_BACKUP .
-  class-events BUFFER_REFRESH
-    exporting
-      value(IM_ALL_OBJECTS) type XFELD .
-  class-events BUFFER_RESTORE .
-  class-events BUFFER_SAVE .
-  class-events DISTRIBUTE .
-  class-events EXIT .
-  class-events ROLLBACK .
-  class-events SAVE .
+    CLASS-EVENTS before_save .
+    CLASS-EVENTS buffer_backup .
+    CLASS-EVENTS buffer_refresh
+      EXPORTING
+        VALUE(im_all_objects) TYPE xfeld .
+    CLASS-EVENTS buffer_restore .
+    CLASS-EVENTS buffer_save .
+    CLASS-EVENTS distribute .
+    CLASS-EVENTS exit .
+    CLASS-EVENTS rollback .
+    CLASS-EVENTS save .
 
-  class-methods CLASS_CONSTRUCTOR .
-  class-methods CREATE_OBJECT
-    importing
-      !IM_OBJ_TYPE type ZAPPL_OBJ_TYPE
-      !IT_PARAMETER type ABAP_PARMBIND_TAB optional
-      !IM_OBJ_REGISTER type XFELD default 'X'
-    exporting
-      !EX_OBJECT type ref to ZIF_APPL_OBJECT .
-  class-methods GET_APPL_MESSAGE
-    returning
-      value(RE_OBJ_MESSAGE) type ref to ZIF_APPL_MESSAGE .
-  class-methods GET_FIELD_CATALOG
-    importing
-      !IM_LAYOUT_NAME type LVC_TNAME
-    returning
-      value(RE_TAB_FCAT) type ZAPPL_LVC_FCAT_TT .
-  class-methods GET_GLOBAL_PARAMETER
-    importing
-      value(IM_NAME) type FIELDNAME
-    returning
-      value(RESULT) type STRING
-    raising
-      ZCX_APPL_GLB_PAR .
-  class-methods GET_SINGLE_OBJ
-    importing
-      !IM_APPL_TYPE type ZAPPL_OBJ_TYPE
-    returning
-      value(RE_OBJECT) type ref to ZIF_APPL_OBJECT .
-  class-methods SAVE_ALL .
-  class-methods COMMIT_WORK
-    importing
-      !IM_WAIT type XFELD default 'X' .
-  class-methods REFRESH_BUFFER
-    importing
-      !IM_ALL_OBJECTS type XFELD default SPACE .
-  class-methods RESTORE_BUFFER .
-  class-methods SAVE_BUFFER .
-  class-methods GET_UPDATE_FLAG
-    returning
-      value(RM_FLAG) type XFELD .
-  class-methods SET_UPDATE_FLAG
-    importing
-      value(IM_FLAG) type XFELD default ABAP_TRUE .
-  class-methods CHANGE_INPUT .
+    CLASS-METHODS class_constructor .
+    CLASS-METHODS create_object
+      IMPORTING
+        !im_obj_type     TYPE zappl_obj_type
+        !it_parameter    TYPE abap_parmbind_tab OPTIONAL
+        !im_obj_register TYPE xfeld DEFAULT 'X'
+      EXPORTING
+        !ex_object       TYPE REF TO zif_appl_object .
+    CLASS-METHODS get_appl_message
+      RETURNING
+        VALUE(re_obj_message) TYPE REF TO zif_appl_message .
+    CLASS-METHODS get_field_catalog
+      IMPORTING
+        !im_layout_name    TYPE lvc_tname
+      RETURNING
+        VALUE(re_tab_fcat) TYPE zappl_lvc_fcat_tt .
+    CLASS-METHODS get_global_parameter
+      IMPORTING
+        VALUE(im_name) TYPE fieldname
+      RETURNING
+        VALUE(result)  TYPE string
+      RAISING
+        zcx_appl_glb_par .
+    CLASS-METHODS get_single_obj
+      IMPORTING
+        !im_appl_type    TYPE zappl_obj_type
+      RETURNING
+        VALUE(re_object) TYPE REF TO zif_appl_object .
+    CLASS-METHODS save_all .
+    CLASS-METHODS commit_work
+      IMPORTING
+        !im_wait TYPE xfeld DEFAULT 'X' .
+    CLASS-METHODS refresh_buffer
+      IMPORTING
+        !im_all_objects TYPE xfeld DEFAULT space .
+    CLASS-METHODS restore_buffer .
+    CLASS-METHODS save_buffer .
+    CLASS-METHODS get_update_flag
+      RETURNING
+        VALUE(rm_flag) TYPE xfeld .
+    CLASS-METHODS set_update_flag
+      IMPORTING
+        VALUE(im_flag) TYPE xfeld DEFAULT abap_true .
+    CLASS-METHODS change_input .
   PROTECTED SECTION.
 
-private section.
+  PRIVATE SECTION.
 
-  class-data O_APPL_MESSAGE type ref to ZIF_APPL_MESSAGE .
-  class-data T_APPL_TYPES type ZAPPL_OBJ_TYPES_TT .
-  class-data T_SINGLE_OBJ type ZAPPL_OBJECT_POINTER_TT .
-  class-data FLG_POST_ON type XFELD .
-  class-data FLG_REFRESH_ON type XFELD .
-  class-data FLG_RESTORE_ON type XFELD .
+    CLASS-DATA o_appl_message TYPE REF TO zif_appl_message .
+    CLASS-DATA t_appl_types TYPE zappl_obj_types_tt .
+    CLASS-DATA t_single_obj TYPE zappl_object_pointer_tt .
+    CLASS-DATA flg_post_on TYPE xfeld .
+    CLASS-DATA flg_refresh_on TYPE xfeld .
+    CLASS-DATA flg_restore_on TYPE xfeld .
 
-  class-methods SET_OBJECTS_CNTL .
-  class-methods RESET_HANDLER .
-  class-methods SET_HANDLER .
+    CLASS-METHODS set_objects_cntl .
+    CLASS-METHODS reset_handler .
+    CLASS-METHODS set_handler .
 ENDCLASS.
 
 
@@ -218,7 +218,7 @@ CLASS ZCL_APPL_CNTL IMPLEMENTATION.
         AND active      = 'X'.
 
     LOOP AT re_tab_fcat ASSIGNING <fcat>.
-      SELECT SINGLE *  FROM zappl_lvcft "#EC CI_ALL_FIELDS_NEEDED
+      SELECT SINGLE *  FROM zappl_lvcft       "#EC CI_ALL_FIELDS_NEEDED
               INTO CORRESPONDING FIELDS OF <fcat>
         WHERE layout_name = <fcat>-layout_name
           AND fieldname   = <fcat>-fieldname

@@ -1,6 +1,28 @@
 
 REPORT zappl_cust_init.
-
+********************************************************************************
+* The MIT License (MIT)
+*
+* Copyright (c) 2021 abapAppl Contributors
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+********************************************************************************
 CLASS lcl_install DEFINITION DEFERRED.
 
 
@@ -27,6 +49,7 @@ CLASS lcl_install DEFINITION FINAL.
     METHODS clear.
     METHODS install_data.
     METHODS install_html_colors.
+    METHODS install_obj_types.
 
 ENDCLASS.
 
@@ -52,7 +75,7 @@ CLASS lcl_install IMPLEMENTATION.
         ( type = 'APPL_MESSAGE_EVENT' class = 'ZCL_APPL_MESSAGE_EVENT'    single = ' ' )
         ( type = 'APPL_OBJ_TYPE'      class = 'ZCL_APPL_OBJ_TYPES'        single = 'X' )
         ( type = 'APPL_OBJ_TYPE_DB'   class = 'ZCL_APPL_OBJ_TYPES_DB'     single = 'X' )
-        ( type = 'APPL_HTML_BTN'      class = 'ZCL_APPL_HTML_BUTTON'      single = ''  )
+        ( type = 'APPL_HTML_BTN'      class = 'ZCL_APPL_HTML_BUTTON'      single = ' ' )
         ( type = 'APPL_HTML_BTN_CNTL' class = 'ZCL_APPL_HTML_BUTTON_CNTL' single = 'X' )
         ( type = 'APPL_LOCK_CNTL'     class = 'ZCL_APPL_LOCK_CNTL'        single = 'X' )
     ).
@@ -218,9 +241,14 @@ CLASS lcl_install IMPLEMENTATION.
   METHOD install_data.
 
     IF s_sel-install_obj_types EQ abap_true.
-
+      install_obj_types( ).
     ELSEIF s_sel-install_colors EQ abap_true.
       install_html_colors( ).
+    ENDIF.
+
+    IF     s_sel-install_obj_types EQ abap_true
+        OR s_sel-install_colors    EQ abap_true.
+      COMMIT WORK.
     ENDIF.
 
   ENDMETHOD.
@@ -236,19 +264,34 @@ CLASS lcl_install IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD install_obj_types.
+
+    IF s_sel-install_obj_types EQ abap_false.
+      EXIT.
+    ENDIF.
+
+    DELETE FROM zappl_obj_types
+        WHERE type LIKE 'APPL_%'.
+    MODIFY zappl_obj_types FROM TABLE t_obj_types.
+
+  ENDMETHOD.
+
 ENDCLASS.
 
 DATA: lo_install TYPE REF TO lcl_install,
       s_sel      TYPE lcl_install=>ty_appl_sel_install.
 
 PARAMETERS:
-  pa_type TYPE lcl_install=>ty_appl_sel_install-install_obj_types,
-  pa_col  TYPE lcl_install=>ty_appl_sel_install-install_colors.
+  pa_type AS CHECKBOX DEFAULT 'X',
+  pa_col  AS CHECKBOX.
 
 INITIALIZATION.
 
   CREATE OBJECT lo_install.
 
+AT SELECTION-SCREEN OUTPUT.
+  %_pa_type_%_app_%-text = 'install object types'.
+  %_pa_col_%_app_%-text  = 'install html colors'.
 
 START-OF-SELECTION.
   s_sel-install_obj_types = pa_type.

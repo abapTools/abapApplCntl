@@ -7,7 +7,7 @@
     <DDLANGUAGE>E</DDLANGUAGE>
     <TABCLASS>INTTAB</TABCLASS>
     <LANGDEP>X</LANGDEP>
-    <DDTEXT>ALV Structure for Error-Mesaages</DDTEXT>
+    <DDTEXT>ALV Structure for Mesaages</DDTEXT>
    </DD02V>
    <DD03P_TABLE>
     <DD03P>
