@@ -391,7 +391,6 @@
        <CONT_NAME>TCTRL_ZAPPL_OBJ_TYPES</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_OBJ_TYPES-CLASS</NAME>
-       <TEXT>Class/Interface_________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -408,7 +407,6 @@
        <CONT_NAME>TCTRL_ZAPPL_OBJ_TYPES</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_OBJ_TYPES-SINGLE</NAME>
-       <TEXT>S_______________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -439,7 +437,6 @@
        <CONT_NAME>TCTRL_ZAPPL_OBJ_TYPES</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_OBJ_TYPES-TYPE</NAME>
-       <TEXT>____________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>020</LENGTH>
@@ -457,7 +454,6 @@
        <CONT_NAME>TCTRL_ZAPPL_OBJ_TYPES</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_OBJ_TYPES-CLASS</NAME>
-       <TEXT>______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>030</LENGTH>
@@ -674,7 +670,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_BTN_TYPES-TYPE</NAME>
-       <TEXT>Button_Type_____________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -691,7 +686,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_BTN_TYPES-BTN_TEXT</NAME>
-       <TEXT>Button_Text_____________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -708,7 +702,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_BTN_TYPES-BTN_COLOR</NAME>
-       <TEXT>Color_Name______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -725,7 +718,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_BTN_TYPES-OK_CODE</NAME>
-       <TEXT>Current_Function_Code___________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>040</LENGTH>
@@ -756,7 +748,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_BTN_TYPES-TYPE</NAME>
-       <TEXT>____________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>020</LENGTH>
@@ -774,7 +765,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_BTN_TYPES-BTN_TEXT</NAME>
-       <TEXT>________________________________________________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>080</LENGTH>
@@ -791,7 +781,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_BTN_TYPES-BTN_COLOR</NAME>
-       <TEXT>______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>030</LENGTH>
@@ -810,7 +799,6 @@
        <CONT_NAME>TCTRL_ZAPPL_BTN_TYPES</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_BTN_TYPES-OK_CODE</NAME>
-       <TEXT>______________________________________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>070</LENGTH>
@@ -1012,7 +1000,6 @@
        <CONT_NAME>TCTRL_ZAPPL_HTM_COLORS</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_HTM_COLORS-COLOR_NAME</NAME>
-       <TEXT>Color_Name______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -1029,7 +1016,6 @@
        <CONT_NAME>TCTRL_ZAPPL_HTM_COLORS</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAPPL_HTM_COLORS-COLOR_CODE</NAME>
-       <TEXT>Color_code______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -1060,7 +1046,6 @@
        <CONT_NAME>TCTRL_ZAPPL_HTM_COLORS</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_HTM_COLORS-COLOR_NAME</NAME>
-       <TEXT>______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>030</LENGTH>
@@ -1078,7 +1063,6 @@
        <CONT_NAME>TCTRL_ZAPPL_HTM_COLORS</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAPPL_HTM_COLORS-COLOR_CODE</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>008</LENGTH>
