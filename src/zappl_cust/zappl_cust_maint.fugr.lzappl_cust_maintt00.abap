@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
-*   generation date: 09.09.2021 at 23:57:47
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 *...processing: ZAPPL_BTN_TYPES.................................*
 DATA:  BEGIN OF STATUS_ZAPPL_BTN_TYPES               .   "state vector

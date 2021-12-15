@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
-*   generation date: 27.06.2021 at 14:37:13
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 *...processing: ZAPPL_OBJ_TYPES.................................*
 DATA:  BEGIN OF STATUS_ZAPPL_OBJ_TYPES               .   "state vector
