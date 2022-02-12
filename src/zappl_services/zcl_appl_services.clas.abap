@@ -207,45 +207,45 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
 
   METHOD create_dynamic_table.
 
- DATA: lr_line             TYPE REF TO data,
-        lo_struc_descr      TYPE REF TO cl_abap_structdescr,
-        lo_table_descr      TYPE REF TO cl_abap_tabledescr.
+    DATA: lr_line        TYPE REF TO data,
+          lo_struc_descr TYPE REF TO cl_abap_structdescr,
+          lo_table_descr TYPE REF TO cl_abap_tabledescr.
 
-  CALL METHOD create_dynamic_structure
-    EXPORTING
-      it_fieldcatalog = it_fieldcatalog
-    IMPORTING
-      ep_line         = lr_line
-    EXCEPTIONS
-      create_error    = 4
-      OTHERS          = 8.
-  IF sy-subrc <> 0.
-    RAISE create_error.
-  ENDIF.
-
-  lo_struc_descr ?= cl_abap_structdescr=>describe_by_data_ref( lr_line ).
-
-  TRY .
-      lo_table_descr ?= cl_abap_tabledescr=>create( p_line_type = lo_struc_descr  ).
-
-    CATCH cx_sy_table_creation.
-      CALL METHOD o_appl_message->add_message
-        EXPORTING
-          im_mstyp = 'E'
-          im_msgid = 'ZAPPL_SERVICES'
-          im_msgno = '004'.
-      IF 1 = 2.
-        MESSAGE e004(ZAPPL_SERVICES). "Bei der Erzeugung eines Tabellentyps ist eine Ausnahme aufgetreten.
-      ENDIF.
-
+    CALL METHOD create_dynamic_structure
+      EXPORTING
+        it_fieldcatalog = it_fieldcatalog
+      IMPORTING
+        ep_line         = lr_line
+      EXCEPTIONS
+        create_error    = 4
+        OTHERS          = 8.
+    IF sy-subrc <> 0.
       RAISE create_error.
+    ENDIF.
 
-  ENDTRY.
+    lo_struc_descr ?= cl_abap_structdescr=>describe_by_data_ref( lr_line ).
+
+    TRY .
+        lo_table_descr ?= cl_abap_tabledescr=>create( p_line_type = lo_struc_descr ).
+
+      CATCH cx_sy_table_creation.
+        CALL METHOD o_appl_message->add_message
+          EXPORTING
+            im_mstyp = 'E'
+            im_msgid = 'ZAPPL_SERVICES'
+            im_msgno = '004'.
+        IF 1 = 2.
+          MESSAGE e004(zappl_services).
+        ENDIF.
+
+        RAISE create_error.
+
+    ENDTRY.
 
 
-  CHECK lo_table_descr IS BOUND.
+    CHECK lo_table_descr IS BOUND.
 
-  CREATE DATA ep_table TYPE HANDLE lo_table_descr.
+    CREATE DATA ep_table TYPE HANDLE lo_table_descr.
 
 
   ENDMETHOD.

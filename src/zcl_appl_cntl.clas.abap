@@ -231,37 +231,9 @@ CLASS ZCL_APPL_CNTL IMPLEMENTATION.
 
 
   METHOD get_global_parameter.
-*
+
 *  DATA: ls_parameter_val    TYPE zappl_glprv,
 *        ls_parameter_def    TYPE zappl_lprd.
-*
-** Für Transaktionsave regestrieren
-*  CALL METHOD set_handler.
-*
-*  READ TABLE t_parameter_val INTO ls_parameter_val WITH KEY param_name = im_name.
-*  IF sy-subrc = 0.
-*    result = ls_parameter_val-param_value.
-*  ELSE.
-*    CLEAR result.
-*    IF t_parameter_def IS INITIAL.
-*      SELECT * FROM zappl_glprd INTO TABLE t_parameter_def.
-*    ENDIF.
-*    READ TABLE t_parameter_def INTO ls_parameter_def WITH KEY param_name = im_name.
-*    IF sy-subrc <> 0.
-*      CALL METHOD o_appl_message->add_message
-*        EXPORTING
-*          im_mstyp = 'E'
-*          im_msgid = 'ZAPPL'
-*          im_msgno = 27
-*          im_msgv1 = im_name.
-*
-*      RAISE EXCEPTION TYPE zcx_appl_glb_par
-*        EXPORTING
-*          textid = zcx_appl_glb_par=>parameter_name_not_exist
-*          table_name = 'ZAPPL_GLPRD'.
-*
-*    ENDIF.
-*  ENDIF.
 
   ENDMETHOD.
 

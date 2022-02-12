@@ -3,7 +3,7 @@ CLASS zcl_appl_alv DEFINITION
   INHERITING FROM cl_gui_alv_grid
   CREATE PUBLIC .
 
-*"* public components of class /BDFPLM/CL_DCC_ALV
+*"* public components of class ZCL_APPL_ALV
 *"* do not include other source files here!!!
   PUBLIC SECTION.
 
@@ -90,7 +90,7 @@ CLASS zcl_appl_alv DEFINITION
     METHODS set_registered_events
         REDEFINITION .
   PROTECTED SECTION.
-*"* protected components of class /BDFPLM/CL_DCC_ALV
+*"* protected components of class ZCL_APPL_ALV
 *"* do not include other source files here!!!
 
     METHODS process_class_button
@@ -109,7 +109,7 @@ CLASS zcl_appl_alv DEFINITION
       IMPORTING
         !im_layout_name TYPE lvc_tname .
   PRIVATE SECTION.
-*"* private components of class /BDFPLM/CL_DCC_ALV
+*"* private components of class ZCL_APPL_ALV
 *"* do not include other source files here!!!
 ENDCLASS.
 
