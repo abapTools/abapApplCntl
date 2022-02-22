@@ -506,7 +506,7 @@ CLASS ZCL_APPL_MESSAGE IMPLEMENTATION.
 
 
   METHOD zif_appl_object~get_appl_type.
-
+    re_type = appl_type.
   ENDMETHOD.
 
 
