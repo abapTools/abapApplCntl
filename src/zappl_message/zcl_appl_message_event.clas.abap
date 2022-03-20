@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">Message events</p>
 CLASS zcl_appl_message_event DEFINITION
   PUBLIC
   CREATE PUBLIC .
@@ -7,6 +8,7 @@ CLASS zcl_appl_message_event DEFINITION
     INTERFACES zif_appl_message_event .
     INTERFACES zif_appl_object .
 
+    "! <p class="shorttext synchronized" lang="en">CONSTRUCTOR</p>
     METHODS constructor .
   PROTECTED SECTION.
   PRIVATE SECTION.

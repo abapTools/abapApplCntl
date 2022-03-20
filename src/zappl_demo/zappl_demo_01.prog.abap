@@ -3,7 +3,7 @@
 *&---------------------------------------------------------------------*
 *&
 *&---------------------------------------------------------------------*
-REPORT zappl_demo.
+REPORT zappl_demo_01.
 
 DATA: lo_demo         TYPE REF TO zif_appl_demo,
       lo_appl_message TYPE REF TO zif_appl_message.
@@ -17,7 +17,7 @@ INITIALIZATION.
     CATCH cx_sy_create_object_error  INTO DATA(e_txt).
       lo_appl_message->add_message(
         EXPORTING
-          im_mstyp = lo_appl_message->co_error
+          im_mstyp = lo_appl_message->c_error
           im_msgid = 'ZDEMO'
           im_msgno = 001
           im_msgv1 = e_txt->get_text( )

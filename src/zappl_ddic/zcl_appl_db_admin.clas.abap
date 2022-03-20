@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">Appl DB Admin Data</p>
 CLASS zcl_appl_db_admin DEFINITION
   PUBLIC
   CREATE PUBLIC .
@@ -11,6 +12,7 @@ CLASS zcl_appl_db_admin DEFINITION
     ALIASES new_data
       FOR zif_appl_db_admin~new_data .
 
+    "! <p class="shorttext synchronized" lang="en">CONSTRUCTOR</p>
     METHODS constructor .
   PROTECTED SECTION.
   PRIVATE SECTION.

@@ -1,14 +1,14 @@
-interface ZIF_APPL_OBJ_TYPES
-  public .
+"! <p class="shorttext synchronized" lang="en">Object Types</p>
+INTERFACE zif_appl_obj_types
+  PUBLIC .
 
+  INTERFACES zif_appl_object .
 
-  interfaces ZIF_APPL_OBJECT .
-
-  methods GET_OBJ_TYPE
-    importing
-      !IM_OBJ_TYPES_KEY type ZAPPL_OBJ_TYPES_KEY .
-  methods SET_OBJ_TYPE .
-  methods GET_OBJ_TYPE_KEY
-    exporting
-      !RE_KEY type ZAPPL_OBJ_TYPES_KEY .
-endinterface.
+  METHODS get_obj_type
+    IMPORTING
+      !im_obj_types_key TYPE zappl_obj_types_key .
+  METHODS set_obj_type .
+  METHODS get_obj_type_key
+    EXPORTING
+      !re_key TYPE zappl_obj_types_key .
+ENDINTERFACE.

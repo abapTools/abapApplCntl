@@ -1,38 +1,42 @@
-class ZCL_APPL_OBJ_TYPES definition
-  public
-  create public .
+"! <p class="shorttext synchronized" lang="en">Obj Types</p>
+CLASS zcl_appl_obj_types DEFINITION
+  PUBLIC
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_APPL_OBJECT .
-  interfaces ZIF_APPL_OBJ_TYPES .
+    INTERFACES zif_appl_object .
+    INTERFACES zif_appl_obj_types .
 
-  aliases APPL_TYPE
-    for ZIF_APPL_OBJECT~APPL_TYPE .
-  aliases O_APPL_MESSAGE
-    for ZIF_APPL_OBJECT~O_APPL_MESSAGE .
-  aliases GET_APPL_TYPE
-    for ZIF_APPL_OBJECT~GET_APPL_TYPE .
-  aliases GET_OBJ_TYPE
-    for ZIF_APPL_OBJ_TYPES~GET_OBJ_TYPE .
-  aliases GET_OBJ_TYPE_KEY
-    for ZIF_APPL_OBJ_TYPES~GET_OBJ_TYPE_KEY .
-  aliases SET_APPL_TYPE
-    for ZIF_APPL_OBJECT~SET_APPL_TYPE .
-  aliases SET_OBJ_TYPE
-    for ZIF_APPL_OBJ_TYPES~SET_OBJ_TYPE .
+    ALIASES appl_type
+      FOR zif_appl_object~appl_type .
+    ALIASES o_appl_message
+      FOR zif_appl_object~o_appl_message .
+    ALIASES get_appl_type
+      FOR zif_appl_object~get_appl_type .
+    ALIASES get_obj_type
+      FOR zif_appl_obj_types~get_obj_type .
+    ALIASES get_obj_type_key
+      FOR zif_appl_obj_types~get_obj_type_key .
+    ALIASES set_appl_type
+      FOR zif_appl_object~set_appl_type .
+    ALIASES set_obj_type
+      FOR zif_appl_obj_types~set_obj_type .
 
-  class-methods CLASS_CONSTRUCTOR .
-  methods CONSTRUCTOR .
+    "! <p class="shorttext synchronized" lang="en">CLASS_CONSTRUCTOR</p>
+    CLASS-METHODS class_constructor .
+    "! <p class="shorttext synchronized" lang="en">CONSTRUCTOR</p>
+    METHODS constructor .
   PROTECTED SECTION.
 
+    "! <p class="shorttext synchronized" lang="en">DB Object</p>
     CLASS-DATA o_obj_types_db TYPE REF TO zif_appl_object_db .
-private section.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZCL_APPL_OBJ_TYPES IMPLEMENTATION.
+CLASS zcl_appl_obj_types IMPLEMENTATION.
 
 
   METHOD class_constructor.

@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">HTML Button</p>
 CLASS zcl_appl_html_button DEFINITION
   PUBLIC
   CREATE PUBLIC .
@@ -25,29 +26,34 @@ CLASS zcl_appl_html_button DEFINITION
       FOR zif_appl_html_button~set_inactive .
 
     TYPES:
-      ty_html_table TYPE STANDARD TABLE OF text1000 .
+      ty_html_table TYPE STANDARD TABLE OF text1000 WITH DEFAULT KEY.
 
+    "! <p class="shorttext synchronized" lang="en">Contructor</p>
     METHODS constructor
       IMPORTING
         !i_btn TYPE zappl_html_button.
   PROTECTED SECTION.
   PRIVATE SECTION.
 
+    "! <p class="shorttext synchronized" lang="en">table of events</p>
     DATA mt_events TYPE cntl_simple_events .
     DATA:
       ms_event       LIKE LINE OF mt_events .
     DATA:
       mt_html        TYPE STANDARD TABLE OF text1000
-                                       WITH NON-UNIQUE DEFAULT KEY .
+                                         WITH NON-UNIQUE DEFAULT KEY .
     DATA:
       mv_html        LIKE LINE OF mt_html .
     DATA mv_url TYPE text1000 .
     DATA mv_color TYPE string .
+    "! <p class="shorttext synchronized" lang="en">object of GUI container for HTML Button</p>
     DATA mo_container TYPE REF TO cl_gui_container .
     DATA mo_html TYPE REF TO cl_gui_html_viewer .
     DATA mv_inactive TYPE char01 .
-    DATA s_btn TYPE zappl_html_button.
-    DATA s_btn_fields TYPE zappl_html_btn_fields.
+    "! <p class="shorttext synchronized" lang="en">HTML Button</p>
+    DATA s_btn TYPE zappl_html_button .
+    "! <p class="shorttext synchronized" lang="en">HTML Button Fields</p>
+    DATA s_btn_fields TYPE zappl_html_btn_fields .
 
     METHODS handle_sapevent
       FOR EVENT sapevent OF cl_gui_html_viewer
@@ -62,8 +68,7 @@ CLASS zcl_appl_html_button DEFINITION
         !iv_text    TYPE clike
         !iv_color   TYPE clike
         !iv_ok_code TYPE clike
-      CHANGING
-        !ct_html    TYPE ty_html_table .
+        RETURNING VALUE(rt_html) TYPE ty_html_table .
     METHODS read_btn_db
       IMPORTING
         !i_btn_type TYPE zappl_html_button-btn_type .
@@ -73,11 +78,12 @@ ENDCLASS.
 
 
 
-CLASS ZCL_APPL_HTML_BUTTON IMPLEMENTATION.
+CLASS zcl_appl_html_button IMPLEMENTATION.
 
 
   METHOD build_html_code.
-    DATA lv_html LIKE LINE OF ct_html.
+
+    DATA lv_html LIKE LINE OF rt_html.
 
     CONCATENATE
         '<html><head><title>BUTTON</title>'
@@ -91,7 +97,7 @@ CLASS ZCL_APPL_HTML_BUTTON IMPLEMENTATION.
         iv_text     '" onclick="location.href=''SAPEVENT:'
         iv_ok_code  '''"></body></html>'
         INTO lv_html.
-    APPEND lv_html TO ct_html.
+    APPEND lv_html TO rt_html.
 
   ENDMETHOD.
 
@@ -139,13 +145,10 @@ CLASS ZCL_APPL_HTML_BUTTON IMPLEMENTATION.
     SET HANDLER handle_sapevent FOR mo_html.
 
 *== build HTML code for Button
-    CALL METHOD build_html_code
-      EXPORTING
-        iv_text    = s_btn_fields-btn_text
-        iv_color   = s_btn_fields-btn_color
-        iv_ok_code = s_btn_fields-ok_code
-      CHANGING
-        ct_html    = lt_html.
+        lt_html = build_html_code(
+                    iv_text    = s_btn_fields-btn_text
+                    iv_color   = s_btn_fields-btn_color
+                    iv_ok_code = s_btn_fields-ok_code   ).
 
 *== load created HTML code into HTML control
     CALL METHOD mo_html->load_data
@@ -227,14 +230,10 @@ CLASS ZCL_APPL_HTML_BUTTON IMPLEMENTATION.
     mv_inactive = ''.
 
 *== build HTML code for Button
-    CALL METHOD build_html_code
-      EXPORTING
-        iv_text    = s_btn_fields-btn_text
-        iv_color   = s_btn_fields-btn_color
-        iv_ok_code = s_btn_fields-ok_code
-      CHANGING
-        ct_html    = lt_html.
-
+        lt_html = build_html_code(
+                    iv_text    = s_btn_fields-btn_text
+                    iv_color   = s_btn_fields-btn_color
+                    iv_ok_code = s_btn_fields-ok_code   ).
 *== load created HTML code into HTML control
     CALL METHOD mo_html->load_data
       IMPORTING
@@ -255,13 +254,10 @@ CLASS ZCL_APPL_HTML_BUTTON IMPLEMENTATION.
     mv_inactive = 'X'.
 
 *== build HTML code for Button
-    CALL METHOD build_html_code
-      EXPORTING
-        iv_text    = s_btn_fields-btn_text
-        iv_color   = 'grey'
-        iv_ok_code = ''
-      CHANGING
-        ct_html    = lt_html.
+        lt_html = build_html_code(
+                    iv_text    = s_btn_fields-btn_text
+                    iv_color   = 'grey'
+                    iv_ok_code = ''   ).
 
 *== load created HTML code into HTML control
     CALL METHOD mo_html->load_data

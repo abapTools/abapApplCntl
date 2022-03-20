@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">Basic Object Instance</p>
 INTERFACE zif_appl_instance
   PUBLIC .
 

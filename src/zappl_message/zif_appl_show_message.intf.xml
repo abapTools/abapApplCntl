@@ -10,6 +10,20 @@
     <STATE>1</STATE>
     <UNICODE>X</UNICODE>
    </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_APPL_SHOW_MESSAGE</CLSNAME>
+     <CMPNAME>DISPLAY_DOCKING</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Display of messages in the docking container</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_APPL_SHOW_MESSAGE</CLSNAME>
+     <CMPNAME>DISPLAY_MODAL</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Display of messages in the modal window</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
   </asx:values>
  </asx:abap>
 </abapGit>
