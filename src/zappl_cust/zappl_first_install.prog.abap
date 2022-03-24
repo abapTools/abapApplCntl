@@ -1,5 +1,5 @@
 
-REPORT zappl_cust_init.
+REPORT zappl_install.
 ********************************************************************************
 * The MIT License (MIT)
 *

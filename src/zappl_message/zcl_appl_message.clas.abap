@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">Application Message</p>
 CLASS zcl_appl_message DEFINITION
   PUBLIC
   CREATE PUBLIC .
@@ -70,15 +71,15 @@ CLASS zcl_appl_message DEFINITION
   PRIVATE SECTION.
 
     ALIASES co_abort
-      FOR zif_appl_MESSAGE~co_abort .
+      FOR zif_appl_MESSAGE~c_abort .
     ALIASES co_error
-      FOR zif_appl_MESSAGE~co_error .
+      FOR zif_appl_MESSAGE~c_error .
     ALIASES co_infor
-      FOR zif_appl_MESSAGE~co_infor .
+      FOR zif_appl_MESSAGE~c_infor .
     ALIASES co_succe
-      FOR zif_appl_MESSAGE~co_succe .
+      FOR zif_appl_MESSAGE~c_succe .
     ALIASES co_warng
-      FOR zif_appl_MESSAGE~co_warng .
+      FOR zif_appl_MESSAGE~c_warng .
     ALIASES get_log_handle
       FOR zif_appl_MESSAGE~get_log_handle .
     ALIASES get_messages
@@ -206,7 +207,7 @@ CLASS ZCL_APPL_MESSAGE IMPLEMENTATION.
         CATCH cx_sy_create_object_error.
           CALL METHOD o_appl_message->add_message
             EXPORTING
-              im_mstyp = o_appl_message->co_abort
+              im_mstyp = o_appl_message->c_abort
               im_msgid = 'ZAPPL'
               im_msgno = 41
               im_msgv1 = 'APPL_MESSAGE_SHOW'.

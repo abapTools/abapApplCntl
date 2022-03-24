@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">HTML Button CNTL</p>
 CLASS zcl_appl_html_button_cntl DEFINITION
   PUBLIC
   FINAL
@@ -18,12 +19,15 @@ CLASS zcl_appl_html_button_cntl DEFINITION
     ALIASES set_appl_type
       FOR zif_appl_object~set_appl_type .
 
+    "! <p class="shorttext synchronized" lang="en">Contructor</p>
     METHODS constructor .
   PROTECTED SECTION.
   PRIVATE SECTION.
 
+    "! <p class="shorttext synchronized" lang="en">Button Pointer</p>
     DATA t_pointer TYPE zappl_html_btn_pointer_tt .
 
+    "! <p class="shorttext synchronized" lang="en">get the object of button</p>
     METHODS get_obj_btn
       IMPORTING
         !i_btn           TYPE zappl_html_button

@@ -1,22 +1,26 @@
-class ZCL_APPL_OBJ_TYPES_DB definition
-  public
-  create public .
+"! <p class="shorttext synchronized" lang="en">ZAPPL_OBJ_TYPES Database interface</p>
+CLASS zcl_appl_obj_types_db DEFINITION
+  PUBLIC
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_APPL_OBJECT .
-  interfaces ZIF_APPL_OBJECT_DB .
+    INTERFACES zif_appl_object .
+    INTERFACES zif_appl_object_db .
 
-  aliases APPL_TYPE
-    for ZIF_APPL_OBJECT~APPL_TYPE .
-  aliases O_APPL_MESSAGE
-    for ZIF_APPL_OBJECT~O_APPL_MESSAGE .
-  aliases GET_APPL_TYPE
-    for ZIF_APPL_OBJECT~GET_APPL_TYPE .
+    ALIASES appl_type
+      FOR zif_appl_object~appl_type .
+    ALIASES o_appl_message
+      FOR zif_appl_object~o_appl_message .
+    ALIASES get_appl_type
+      FOR zif_appl_object~get_appl_type .
 
-  methods CONSTRUCTOR
-    importing
-      !IM_TABLE_NAME type TABNAME .
+    "! <p class="shorttext synchronized" lang="en">CONSTRUCTOR</p>
+    "!
+    "! @parameter im_table_name | <p class="shorttext synchronized" lang="en">Table Name</p>
+    METHODS constructor
+      IMPORTING
+        !im_table_name TYPE tabname .
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -35,7 +39,9 @@ public section.
       ty_data_tab TYPE HASHED TABLE OF zappl_obj_types WITH UNIQUE KEY type.
     TYPES ty_data_key TYPE zappl_obj_types_key .
 
+    "! <p class="shorttext synchronized" lang="en">Table Name</p>
     DATA gv_table_name TYPE tabname .
+    "! <p class="shorttext synchronized" lang="en">Checkbox</p>
     DATA flg_on_save TYPE xfeld .
     DATA t_backup_delete TYPE ty_data_tab .
     DATA t_backup_insert TYPE ty_data_tab .
@@ -67,7 +73,7 @@ ENDCLASS.
 
 
 
-CLASS ZCL_APPL_OBJ_TYPES_DB IMPLEMENTATION.
+CLASS zcl_appl_obj_types_db IMPLEMENTATION.
 
 
   METHOD constructor.
@@ -97,7 +103,7 @@ CLASS ZCL_APPL_OBJ_TYPES_DB IMPLEMENTATION.
 
 
   METHOD save.
-    _save 'ZDPG_CATEGORY'.
+    _save 'ZAPPL_OBJ_TYPES'.
   ENDMETHOD.
 
 
@@ -191,7 +197,7 @@ CLASS ZCL_APPL_OBJ_TYPES_DB IMPLEMENTATION.
       ex_new = 'X'.
       ex_data = ls_data.
 
-*   Neue Zeile zum Speichern vormerken
+*  Mark new line for saving
       IF im_add_new_line = 'X'.
         CALL METHOD save_data
           EXPORTING

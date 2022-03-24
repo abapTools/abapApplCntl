@@ -1,24 +1,26 @@
-INTERFACE zif_appl_show_message
-  PUBLIC .
+"! <p class="shorttext synchronized" lang="en">Show Message</p>
+interface ZIF_APPL_SHOW_MESSAGE
+  public .
 
 
-  INTERFACES zif_appl_object .
+  interfaces ZIF_APPL_OBJECT .
 
-  EVENTS display_finished .
+  events DISPLAY_FINISHED .
 
-  METHODS display_docking
-    IMPORTING
-      !io_message TYPE REF TO zif_appl_message OPTIONAL .
-  METHODS display_modal
-    IMPORTING
-      !io_message TYPE REF TO zif_appl_message OPTIONAL .
-  METHODS display_modeless
-    IMPORTING
-      !io_message TYPE REF TO zif_appl_message OPTIONAL .
-  METHODS display_html
-    IMPORTING
-      !io_message TYPE REF TO zif_appl_message OPTIONAL .
-  METHODS set_visible
-    IMPORTING
-      !im_visible TYPE xfeld .
-ENDINTERFACE.
+"! <p class="shorttext synchronized" lang="en">Display of messages in the docking container</p>
+  methods DISPLAY_DOCKING
+    importing
+      !IO_MESSAGE type ref to ZIF_APPL_MESSAGE optional .
+  methods DISPLAY_MODAL
+    importing
+      !IO_MESSAGE type ref to ZIF_APPL_MESSAGE optional .
+  methods DISPLAY_MODELESS
+    importing
+      !IO_MESSAGE type ref to ZIF_APPL_MESSAGE optional .
+  methods DISPLAY_HTML
+    importing
+      !IO_MESSAGE type ref to ZIF_APPL_MESSAGE optional .
+  methods SET_VISIBLE
+    importing
+      !IM_VISIBLE type XFELD .
+endinterface.

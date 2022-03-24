@@ -1,35 +1,44 @@
-class ZCL_APPL_SERVICES definition
-  public
-  create public .
+"! <p class="shorttext synchronized" lang="en">Appl Services</p>
+CLASS zcl_appl_services DEFINITION
+  PUBLIC
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  class-methods CLASS_CONSTRUCTOR .
-  class-methods CREATE_DYNAMIC_TABLE
-    importing
-      !IT_FIELDCATALOG type LVC_T_FCAT
-    exporting
-      !EP_TABLE type ref to DATA
-    exceptions
-      CREATE_ERROR .
-  class-methods CREATE_DYNAMIC_STRUCTURE
-    importing
-      !IT_FIELDCATALOG type LVC_T_FCAT
-    exporting
-      !EP_LINE type ref to DATA
-    exceptions
-      CREATE_ERROR .
-  class-methods GET_NEW_GUID
-    returning
-      value(RE_GUID) type SYSUUID_X16 .
+    "! <p class="shorttext synchronized" lang="en">CLASS_CONSTRUCTOR</p>
+    CLASS-METHODS class_constructor .
+    "! <p class="shorttext synchronized" lang="en">Create dynamic data table</p>
+    "!
+    "! @parameter it_fieldcatalog | <p class="shorttext synchronized" lang="en">Field Catalog for List Viewer Control</p>
+    "! @exception create_error    | <p class="shorttext synchronized" lang="en">Error during generation of internal table</p>
+    CLASS-METHODS create_dynamic_table
+      IMPORTING
+        !it_fieldcatalog TYPE lvc_t_fcat
+      EXPORTING
+        !ep_table        TYPE REF TO data
+      EXCEPTIONS
+        create_error .
+    CLASS-METHODS create_dynamic_structure
+      IMPORTING
+        !it_fieldcatalog TYPE lvc_t_fcat
+      EXPORTING
+        !ep_line         TYPE REF TO data
+      EXCEPTIONS
+        create_error .
+    "! <p class="shorttext synchronized" lang="en">create Guid X16</p>
+    "!
+    "! @parameter re_guid | <p class="shorttext synchronized" lang="en">16 Byte UUID in 16 Bytes (Raw Format)</p>
+    CLASS-METHODS get_new_guid
+      RETURNING
+        VALUE(re_guid) TYPE sysuuid_x16 .
 
-protected section.
+  PROTECTED SECTION.
 
-  class-methods GET_LENGTH
-    importing
-      !IS_FCAT type LVC_S_FCAT
-    returning
-      value(RE_LENGTH) type I .
+    CLASS-METHODS get_length
+      IMPORTING
+        !is_fcat         TYPE lvc_s_fcat
+      RETURNING
+        VALUE(re_length) TYPE i .
   PRIVATE SECTION.
 
     CLASS-DATA o_appl_message TYPE REF TO zif_appl_message .
@@ -66,7 +75,7 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
       CLEAR: ls_field.
       ls_field-name = ls_fcat-fieldname.
 
-*   Referenztabellenname für internes Tabellenfeld
+*   Reference table name for internal table field
       IF ls_fcat-ref_table IS NOT INITIAL.
         CLEAR lv_name.
         IF ls_fcat-ref_field IS INITIAL .
@@ -77,9 +86,9 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
 
         ls_field-type ?= cl_abap_typedescr=>describe_by_name( lv_name ).
 
-*   Datentyp im ABAP Dictionary
+*   Data type in the ABAP Dictionary
       ELSEIF ls_fcat-datatype IS NOT INITIAL.
-        CASE ls_fcat-datatype. "#EC CI_DATN_TIMN_OK
+        CASE ls_fcat-datatype.                     "#EC CI_DATN_TIMN_OK
           WHEN 'CHAR'.
             lv_length = get_length( ls_fcat ).
             ls_field-type ?= cl_abap_elemdescr=>get_c( p_length = lv_length ).
@@ -106,14 +115,14 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
 
         ENDCASE.
 
-*   ABAP-Datentyp (C,D,N,...)
+*   ABAP datatype (C,D,N,...)
       ELSEIF ls_fcat-inttype IS NOT INITIAL.
-        CASE ls_fcat-inttype. "#EC CI_INT8_OK  "#EC CI_UTCL_OK
-          WHEN 'C'.       "Zeichenfolge  (Character)
+        CASE ls_fcat-inttype.                           "#EC CI_UTCL_OK
+          WHEN 'C'.       "String  (Character)
             lv_length = get_length( ls_fcat ).
             ls_field-type ?= cl_abap_elemdescr=>get_c( p_length = lv_length ).
 
-          WHEN 'N'.       "Zeichenfolge nur mit Ziffern
+          WHEN 'N'.       "String with digits only
             lv_length = get_length( ls_fcat ).
             ls_field-type ?= cl_abap_elemdescr=>get_n( p_length = lv_length ).
 
@@ -153,7 +162,7 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
 
         ENDCASE.
 
-*   Bezeichnung einer Domäne
+*   Designation of a domain
       ELSEIF ls_fcat-domname IS NOT INITIAL.
 
 *   Datenelement (semantische Domäne)
@@ -178,7 +187,7 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
     CHECK lt_fields IS NOT INITIAL.
 
 
-* Strukture generieren
+* Generate structure
     TRY .
         lo_struc_descr ?= cl_abap_structdescr=>create( lt_fields ).
 
@@ -191,7 +200,8 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
             im_msgid = 'ZAPPL_SERVICES'
             im_msgno = '003'.
         IF 1 = 2.
-          MESSAGE e003(zappl_services). "Bei der Erzeugung eines Strukturtyps ist eine Ausnahme aufgetreten.
+          MESSAGE e003(zappl_services).
+          " An exception occurred when creating a structure type.
         ENDIF.
 
         RAISE create_error.
@@ -293,11 +303,11 @@ CLASS ZCL_APPL_SERVICES IMPLEMENTATION.
       CATCH cx_uuid_error INTO DATA(e_txt).
         o_appl_message->add_message(
           EXPORTING
-            im_mstyp = o_appl_message->co_error
+            im_mstyp = o_appl_message->c_error
             im_msgid = 'ZAPPL_SERVICES'
             im_msgno = 005
             im_msgv1 = e_txt->get_text( )
-            ).
+        ).
         IF 1 = 2.
           MESSAGE e005(zappl_services) WITH '&1' '&2' .
           " Error during GUID creation &1 &2

@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">show Messages</p>
 CLASS zcl_appl_show_message DEFINITION
   PUBLIC
   CREATE PUBLIC .

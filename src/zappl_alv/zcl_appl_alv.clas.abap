@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">ALV List Viewer</p>
 CLASS zcl_appl_alv DEFINITION
  PUBLIC
   INHERITING FROM cl_gui_alv_grid
@@ -174,30 +175,18 @@ CLASS ZCL_APPL_ALV IMPLEMENTATION.
       lv_ready_for_input   = is_ready_for_input( ).
     ENDIF.
 
-* Customizing nachlesen
+* Customizing read more
     IF im_layout_name IS SUPPLIED AND layout_name <> im_layout_name.
       CALL METHOD read_customer_customizing( im_layout_name ).
     ENDIF.
 
-* Kundenbutton
+* Customer button
     LOOP AT t_customer_buttons INTO ls_customer_button
       WHERE parent_button = im_button_name.
 
       _buttons.
 
     ENDLOOP.
-
-* Klassifizierungsbutton
-    LOOP AT t_customer_class_btn INTO ls_customer_button
-      WHERE parent_button = im_button_name.
-
-      _buttons.
-
-    ENDLOOP.
-
-
-
-
 
 
   ENDMETHOD.
@@ -389,7 +378,7 @@ CLASS ZCL_APPL_ALV IMPLEMENTATION.
 *  endif.
 
     APPEND LINES OF events TO lt_events.
-    SORT lt_events BY eventid.
+    SORT lt_events BY eventid ASCENDING.
     DELETE ADJACENT DUPLICATES FROM lt_events COMPARING eventid.
 
     LOOP AT events INTO simple_event.
