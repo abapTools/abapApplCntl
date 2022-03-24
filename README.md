@@ -7,7 +7,7 @@
 ![GitHub Sponsors](https://img.shields.io/github/sponsors/abapTools)
 
 
-# abapAppl - ABAP Application Controller
+# abapApplCntl - ABAP Application Controller
 
 
 ## Features
