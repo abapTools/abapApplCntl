@@ -9,8 +9,10 @@
 
 # abapApplCntl - ABAP Application Controller
 
-
 ## Features
+
+- Object management and control on singleton via customizing
+- Message Handler
 
 ## Requirements
 
@@ -20,7 +22,6 @@
 ## First steps
 
 - Import via abapGit
-
 - start Transaction code ZAPPL_FIRST_INSTALL
 
 
@@ -110,4 +111,4 @@ Class ZCL_APPL_EXAMPLE_DB, for example, can be used as a copy template.
 
 ## Customizing
 
- "ZAPPL_OBJ_TYPES
+ ZAPPL_OBJ_TYPES
