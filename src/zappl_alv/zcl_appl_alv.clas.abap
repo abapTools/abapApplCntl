@@ -131,7 +131,7 @@ CLASS ZCL_APPL_ALV IMPLEMENTATION.
 
     DEFINE _buttons.
 
-      CHECK ls_customer_button-button_type = 6    "6  Menüeintrag
+      CHECK ls_customer_button-button_type = 6    "6  Menu item
          OR ls_customer_button-button_type = 3.   "3  Separator
 
       CLEAR: lv_icon, lv_disabled.
@@ -160,7 +160,7 @@ CLASS ZCL_APPL_ALV IMPLEMENTATION.
           fcode    = ls_customer_button-button_name       "Function Code
           text     = ls_customer_button-button_text       "Function text
           icon     = lv_icon                              "Icons
-          disabled = lv_disabled.                         "Inaktiv
+          disabled = lv_disabled.                         "Inactiv
 
     END-OF-DEFINITION.
 
