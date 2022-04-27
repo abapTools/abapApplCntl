@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # abapAppl
 
  Requirements
@@ -122,4 +121,4 @@ Class ZCL_APPL_EXAMPLE_DB, for example, can be used as a copy template.
 ## Customizing
 
  ZAPPL_OBJ_TYPES
->>>>>>> develop
+
