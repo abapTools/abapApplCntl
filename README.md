@@ -7,13 +7,6 @@ ABAP 7.50
 ![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)
 ![ABAP Version](https://img.shields.io/badge/ABAP%20-7.20-brightgreen)
 
-[![GitHub latest commit](https://badgen.net/github/last-commit/abapTools/abapApplCntl)](https://GitHub.com/abapTools/abapApplCntl/commit/)
-
-![GitHub last commit](https://img.shields.io/github/last-commit/abapTools/abapApplCntl)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/abapTools/abapApplCntl)
-![GitHub issues](https://img.shields.io/github/issues/abapTools/abapApplCntl)
-![GitHub contributors](https://img.shields.io/github/contributors/abapTools/abapApplCntl)
-![GitHub Sponsors](https://img.shields.io/github/sponsors/abapTools)
 
 
 # abapApplCntl - ABAP Application Controller
