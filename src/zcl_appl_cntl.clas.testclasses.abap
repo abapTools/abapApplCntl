@@ -63,12 +63,8 @@ CLASS ltcl_appl_cntl IMPLEMENTATION.
   METHOD get_single_obj.
     DATA lo_show_message TYPE REF TO zif_appl_show_message.
 
-    try.
+
     lo_show_message ?= zcl_appl_cntl=>get_single_obj( im_appl_type = 'APPL_MESSAGE_SHOW' ).
-
-   endtry.
-
-
 
   ENDMETHOD.
 
