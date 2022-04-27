@@ -10,8 +10,6 @@
 - Message Handler
 
 ## Requirements
-
-- ABAP 7.50  or higher
 - [abapGit](https://abapgit.org/)
 
 ## First steps
