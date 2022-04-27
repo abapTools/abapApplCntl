@@ -1,6 +1,5 @@
 # abapApplCntl
 
-=======
 ![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)
 ![ABAP Version](https://img.shields.io/badge/ABAP%20-7.20-brightgreen)
 
