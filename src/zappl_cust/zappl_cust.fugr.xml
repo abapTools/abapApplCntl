@@ -9,8 +9,8 @@
     <SOBJ_NAME>LZAPPL_CUSTF01</SOBJ_NAME>
     <SOBJ_NAME>LZAPPL_CUSTI01</SOBJ_NAME>
     <SOBJ_NAME>LZAPPL_CUSTO01</SOBJ_NAME>
-    <SOBJ_NAME>LZAPPL_CUSTTOP</SOBJ_NAME>
     <SOBJ_NAME>LZAPPL_CUSTT00</SOBJ_NAME>
+    <SOBJ_NAME>LZAPPL_CUSTTOP</SOBJ_NAME>
     <SOBJ_NAME>SAPLZAPPL_CUST</SOBJ_NAME>
    </INCLUDES>
    <DYNPROS>
@@ -68,35 +68,25 @@
        <LINE>PROCESS BEFORE OUTPUT.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>MODULE status_0100.</LINE>
+       <LINE>  MODULE status_0100.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>MODULE pbo_0100.</LINE>
+       <LINE>  MODULE pbo_0100.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>CALL SUBSCREEN subscreen INCLUDING sy-repid g_dynnr.</LINE>
+       <LINE>  CALL SUBSCREEN subscreen INCLUDING sy-repid g_dynnr.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>PROCESS AFTER INPUT.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>CALL SUBSCREEN subscreen.</LINE>
+       <LINE>  CALL SUBSCREEN subscreen.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>MODULE user_command_0100.</LINE>
+       <LINE>  MODULE user_command_0100.</LINE>
       </RPY_DYFLOW>
      </FLOW_LOGIC>
-     <SPACES>
-      <item>0</item>
-      <item>2</item>
-      <item>2</item>
-      <item>2</item>
-      <item>0</item>
-      <item>0</item>
-      <item>2</item>
-      <item>2</item>
-     </SPACES>
     </item>
     <item>
      <HEADER>
@@ -133,23 +123,16 @@
        <LINE>PROCESS BEFORE OUTPUT.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>MODULE pbo_0110.</LINE>
+       <LINE>  MODULE pbo_0110.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>PROCESS AFTER INPUT.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>MODULE user_command_0110.</LINE>
+       <LINE>  MODULE user_command_0110.</LINE>
       </RPY_DYFLOW>
      </FLOW_LOGIC>
-     <SPACES>
-      <item>0</item>
-      <item>2</item>
-      <item>0</item>
-      <item>0</item>
-      <item>2</item>
-     </SPACES>
     </item>
    </DYNPROS>
   </asx:values>

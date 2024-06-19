@@ -24,7 +24,7 @@
     <SEOCOMPOTX>
      <CMPNAME>O_APPL_MESSAGE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Application message object</DESCRIPT>
+     <DESCRIPT>message object</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CMPNAME>SET_APPL_TYPE</CMPNAME>
