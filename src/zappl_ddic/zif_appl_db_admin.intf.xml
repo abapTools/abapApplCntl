@@ -12,13 +12,11 @@
    </VSEOINTERF>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
-     <CLSNAME>ZIF_APPL_DB_ADMIN</CLSNAME>
      <CMPNAME>CHANGE_DATA</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>set admin data by change dataset</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
-     <CLSNAME>ZIF_APPL_DB_ADMIN</CLSNAME>
      <CMPNAME>NEW_DATA</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>set admin data by new dataset</DESCRIPT>

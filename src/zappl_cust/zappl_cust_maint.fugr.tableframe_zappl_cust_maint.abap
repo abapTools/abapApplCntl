@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    program for:   TABLEFRAME_ZAPPL_CUST_MAINT
-*   generation date: 09.09.2021 at 23:54:50
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION TABLEFRAME_ZAPPL_CUST_MAINT   .
 

@@ -31,8 +31,9 @@ CLASS lcl_install DEFINITION FINAL.
   PUBLIC SECTION.
 
     TYPES: BEGIN OF ty_appl_sel_install,
-             install_obj_types TYPE boolean,
-             install_colors    TYPE boolean,
+             install_obj_types  TYPE boolean,
+             install_demo_types TYPE boolean,
+             install_colors     TYPE boolean,
            END OF ty_appl_sel_install.
     CLASS-DATA: s_sel TYPE ty_appl_sel_install READ-ONLY.
 
@@ -41,15 +42,18 @@ CLASS lcl_install DEFINITION FINAL.
         im_sel TYPE ty_appl_sel_install.
   PROTECTED SECTION.
   PRIVATE SECTION.
-    DATA: t_obj_types TYPE zappl_obj_types_tt,
-          t_colors    TYPE zappl_htm_colors_tt.
+    DATA: t_obj_types  TYPE zappl_obj_types_tt,
+          t_demo_types TYPE zappl_obj_types_tt,
+          t_colors     TYPE zappl_htm_colors_tt.
     METHODS fill_tables.
     METHODS fill_tbl_obj_types.
+    METHODS fill_tbl_demo_types.
     METHODS fill_tbl_colors.
     METHODS clear.
     METHODS install_data.
     METHODS install_html_colors.
     METHODS install_obj_types.
+    METHODS install_demo_types.
 
 ENDCLASS.
 
@@ -64,6 +68,7 @@ CLASS lcl_install IMPLEMENTATION.
 
   METHOD fill_tables.
     fill_tbl_obj_types( ).
+    fill_tbl_demo_types( ).
     fill_tbl_colors( ).
   ENDMETHOD.
 
@@ -80,6 +85,12 @@ CLASS lcl_install IMPLEMENTATION.
         ( type = 'APPL_LOCK_CNTL'     class = 'ZCL_APPL_LOCK_CNTL'        single = 'X' )
     ).
 
+  ENDMETHOD.
+
+  METHOD fill_tbl_demo_types.
+    t_demo_types = VALUE zappl_obj_types_tt(
+     ( type = 'DEMO_APPL'       class = 'ZCL_APPL_DEMO'          single = 'X' )
+     ).
   ENDMETHOD.
 
   METHOD fill_tbl_colors.
@@ -242,39 +253,57 @@ CLASS lcl_install IMPLEMENTATION.
 
     IF s_sel-install_obj_types EQ abap_true.
       install_obj_types( ).
-    ELSEIF s_sel-install_colors EQ abap_true.
+    ENDIF.
+
+    IF s_sel-install_demo_types EQ abap_true.
+      install_demo_types(  ).
+    ENDIF.
+    IF s_sel-install_colors EQ abap_true.
       install_html_colors( ).
     ENDIF.
 
-    IF     s_sel-install_obj_types EQ abap_true
-        OR s_sel-install_colors    EQ abap_true.
+
+    IF     s_sel-install_obj_types  EQ abap_true
+        OR s_sel-install_demo_types EQ abap_true
+        OR s_sel-install_colors     EQ abap_true.
       COMMIT WORK.
     ENDIF.
 
   ENDMETHOD.
 
-  METHOD install_html_colors.
+METHOD install_html_colors.
 
-    IF s_sel-install_colors EQ abap_false.
-      EXIT.
-    ENDIF.
+  IF s_sel-install_colors EQ abap_false.
+    EXIT.
+  ENDIF.
 
-    DELETE FROM zappl_htm_colors.
-    MODIFY zappl_htm_colors FROM TABLE t_colors.
+  DELETE FROM zappl_htm_colors.
+  MODIFY zappl_htm_colors FROM TABLE t_colors.
 
-  ENDMETHOD.
+ENDMETHOD.
 
-  METHOD install_obj_types.
+METHOD install_demo_types.
 
-    IF s_sel-install_obj_types EQ abap_false.
-      EXIT.
-    ENDIF.
+  IF s_sel-install_demo_types EQ abap_false.
+    EXIT.
+  ENDIF.
 
     DELETE FROM zappl_obj_types
-        WHERE type LIKE 'APPL_%'.
-    MODIFY zappl_obj_types FROM TABLE t_obj_types.
+      WHERE type LIKE 'DEMO_%'.
+  MODIFY zappl_obj_types FROM TABLE t_demo_types.
+ENDMETHOD.
 
-  ENDMETHOD.
+METHOD install_obj_types.
+
+  IF s_sel-install_obj_types EQ abap_false.
+    EXIT.
+  ENDIF.
+
+  DELETE FROM zappl_obj_types
+      WHERE type LIKE 'APPL_%'.
+  MODIFY zappl_obj_types FROM TABLE t_obj_types.
+
+ENDMETHOD.
 
 ENDCLASS.
 
@@ -283,6 +312,7 @@ DATA: lo_install TYPE REF TO lcl_install,
 
 PARAMETERS:
   pa_type AS CHECKBOX DEFAULT 'X',
+  pa_demo AS CHECKBOX,
   pa_col  AS CHECKBOX.
 
 INITIALIZATION.
@@ -291,10 +321,12 @@ INITIALIZATION.
 
 AT SELECTION-SCREEN OUTPUT.
   %_pa_type_%_app_%-text = 'install object types'.
+  %_pa_demo_%_app_%-text = 'install demo types'.
   %_pa_col_%_app_%-text  = 'install html colors'.
 
 START-OF-SELECTION.
   s_sel-install_obj_types = pa_type.
+  s_sel-install_demo_types = pa_demo.
   s_sel-install_colors    = pa_col.
 
   lo_install->process( s_sel ).

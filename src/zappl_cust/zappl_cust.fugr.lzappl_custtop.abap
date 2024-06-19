@@ -1,4 +1,3 @@
-* regenerated at 27.06.2021 14:37:13
 FUNCTION-POOL ZAPPL_CUST                 MESSAGE-ID SV.
 
 * INCLUDE LZAPPL_CUSTD...                    " Local class definition
