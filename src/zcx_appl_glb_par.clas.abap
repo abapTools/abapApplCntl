@@ -1,20 +1,20 @@
-CLASS zcx_appl_glb_par DEFINITION
-  PUBLIC
-  INHERITING FROM cx_static_check
-  FINAL
-  CREATE PUBLIC .
+class ZCX_APPL_GLB_PAR definition
+  public
+  inheriting from CX_STATIC_CHECK
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    INTERFACES if_t100_dyn_msg .
-    INTERFACES if_t100_message .
+  interfaces IF_T100_DYN_MSG .
+  interfaces IF_T100_MESSAGE .
 
-    METHODS constructor
-      IMPORTING
-        !textid   LIKE if_t100_message=>t100key OPTIONAL
-        !previous LIKE previous OPTIONAL .
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+  methods CONSTRUCTOR
+    importing
+      !TEXTID like IF_T100_MESSAGE=>T100KEY optional
+      !PREVIOUS like PREVIOUS optional .
+protected section.
+private section.
 ENDCLASS.
 
 
@@ -22,15 +22,16 @@ ENDCLASS.
 CLASS ZCX_APPL_GLB_PAR IMPLEMENTATION.
 
 
-  METHOD constructor ##ADT_SUPPRESS_GENERATION.
-    CALL METHOD super->constructor
-      EXPORTING
-        previous = previous.
-    CLEAR me->textid.
-    IF textid IS INITIAL.
-      if_t100_message~t100key = if_t100_message=>default_textid.
-    ELSE.
-      if_t100_message~t100key = textid.
-    ENDIF.
-  ENDMETHOD.
+  method CONSTRUCTOR.
+CALL METHOD SUPER->CONSTRUCTOR
+EXPORTING
+PREVIOUS = PREVIOUS
+.
+clear me->textid.
+if textid is initial.
+  IF_T100_MESSAGE~T100KEY = IF_T100_MESSAGE=>DEFAULT_TEXTID.
+else.
+  IF_T100_MESSAGE~T100KEY = TEXTID.
+endif.
+  endmethod.
 ENDCLASS.
